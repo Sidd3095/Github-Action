@@ -1,19 +1,19 @@
 param(
-
-[string]$BackupFolder
-
+    [string]$BackupFolder
 )
 
 $SitePath = $env:IIS_SITE_PATH
 
 Write-Host "Rollback Started..."
 
-Get-ChildItem $SitePath |
-Remove-Item -Force -Recurse
+Get-ChildItem $SitePath -Force |
+Where-Object { $_.Name -ne "web.config" } |
+Remove-Item -Recurse -Force
 
-Copy-Item "$BackupFolder\*" `
-          $SitePath `
-          -Force `
-          -Recurse
+robocopy $BackupFolder $SitePath /E /XF web.config
+
+if ($LASTEXITCODE -ge 8) {
+    throw "Rollback Failed. Robocopy Exit Code : $LASTEXITCODE"
+}
 
 Write-Host "Rollback Completed."

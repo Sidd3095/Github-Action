@@ -33,7 +33,7 @@ jobs:
       run: npm run test:ci
      
     - name: Build
-      run: npm run build
+      run: ng build --base-href /Angular/
 
     - name: Deploy
       shell: powershell
