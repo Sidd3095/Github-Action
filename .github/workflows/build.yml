@@ -12,7 +12,10 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on:
+  - self-hosted
+  - Windows
+  - X64
 
     strategy:
       matrix:
@@ -34,5 +37,13 @@ jobs:
      
     - name: Build
       run: npm run build
+
+    - name: Deploy
+      shell: powershell
+      env:
+          IIS_SITE_PATH: ${{ secrets.IIS_SITE_PATH }}
+          BACKUP_PATH: ${{ secrets.BACKUP_PATH }}
+          WEBSITE_URL: ${{ secrets.WEBSITE_URL }}
+      run: ./scripts/deploy.ps1
       
 
