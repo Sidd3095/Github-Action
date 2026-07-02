@@ -139,3 +139,5 @@ Write-Host "Old Backup Cleanup Completed."
 Write-Host "==============================================="
 Write-Host "Deployment Successful"
 Write-Host "==============================================="
+
+exit 0

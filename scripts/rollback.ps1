@@ -17,3 +17,5 @@ if ($LASTEXITCODE -ge 8) {
 }
 
 Write-Host "Rollback Completed."
+
+exit 0
